@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "manifest_version": 3,
     "name": "Hello Extensions",
     "description": "Base Level Extension",
@@ -8,3 +9,14 @@
       "default_icon": "hello_extensions.png"
     }
   }
+=======
+  "name": "Hello Extensions",
+  "description": "Base Level Extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "backend/hello.html",
+    "default_icon": "images/hello_extensions.png"
+  }
+}
+>>>>>>> a520d919f3c3de12a41b5adb046ee684757d1019
