@@ -4,7 +4,17 @@
   "version": "1.0",
   "manifest_version": 3,
   "action": {
-    "default_popup": "backend/hello.html",
-    "default_icon": "images/hello_extensions.png"
+    "default_icon": "images/hello_extensions.png",
+    "default_title": "Click to open panel"
+  },
+  "permissions": [
+    "contextMenus",
+    "sidePanel"
+  ],
+  "side_panel": {
+    "default_path": "backend/sidepanel.html"
+  },
+  "background": {
+    "service_worker": "backend/service-worker.js"
   }
 }
