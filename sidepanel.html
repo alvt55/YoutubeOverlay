@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Sidepanel</title>
-    <style>
-        div.a {
-            word-wrap: break-word;
-        }
-    </style>
-        <!-- Link to the external CSS file -->
-        <link rel="stylesheet" href="style.css">
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Youtube videos</h1>
-    <form id="myForm">
-        <label for="search">Search:</label>
-        <input type="text" id="search" name="search" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
-    <div class="a">
+    <!-- Moving pastel background -->
+    <div class="background"></div>
+    
+    <div class="app-container">
+        <h1>YouTube Search</h1>
+        <form id="myForm">
+            <div class="input-group">
+                <input type="text" id="search" name="search" placeholder="Search" required>
+                <button type="submit" class="btn">Search</button>
+            </div>
+        </form>
+        <!-- Container for the videos -->
+        <div id="video-container"></div>
     </div>
-    <!-- Container for the videos -->
-    <div id="video-container"></div>
 
     <!-- Link to the external JavaScript file -->
     <script src="backend/app.js"></script>
-      
 </body>
 
 </html>
