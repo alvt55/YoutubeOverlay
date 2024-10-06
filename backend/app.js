@@ -57,7 +57,7 @@ async function loadVideos(search) {
     // Loop through the video IDs array
     videoIds.forEach(videoId => {
         // Create a currDiv element with the responsive container class
-        let currDiv = document.createElement('currDiv');
+        let currDiv = document.createElement('div');
         currDiv.className = 'responsive-iframe-container';
 
         // Create an iframe element
