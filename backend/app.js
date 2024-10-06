@@ -13,7 +13,7 @@ form.addEventListener('submit', function(event) {
 // Function to search for videos and return video IDs
 async function Search(search) {
   
-    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyBCQZe7sxmbpMQTzGvkyvypQgfzh-Sof6g&q=${search}&type=video&part=snippet&maxResults=3`);
+    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyBCQZe7sxmbpMQTzGvkyvypQgfzh-Sof6g&q=${search}&type=video&part=snippet&maxResults=30`);
 
     const r = await result.json(); 
     const e = await r.items; 
@@ -44,7 +44,7 @@ async function loadVideos(search) {
 
         // Create PiP button with .png image
         let pipButton = document.createElement('img');
-        pipButton.src = 'path/to/pip-icon.png';  // Set your PiP icon image path
+        pipButton.src = 'images/pip-icon.png';  // Set your PiP icon image path
         pipButton.className = 'pip-button';
         pipButton.title = 'Enable PiP';
         
@@ -78,75 +78,64 @@ function activatePiP(iframe) {
     // Append the floating iframe to the floating container
     floatingDiv.appendChild(floatingIframe);
 
-    // Create controls container
-    const controlsDiv = document.createElement('div');
-    controlsDiv.className = 'video-controls';
-    floatingDiv.appendChild(controlsDiv);
-
     // Create PiP button with .png image
     const pipButton = document.createElement('img');
-    pipButton.src = 'path/to/pip-icon.png';  // Set your PiP icon image path
+    pipButton.src = 'images/pip-icon.png';  // Set your PiP icon image path
     pipButton.className = 'pip-button';
-    pipButton.title = 'Enable PiP';
-    
-    // Add event listener to activate YouTube's built-in PiP mode
+    pipButton.title = 'Close PiP';
+
+    // Add event listener to delete the PiP frame when clicking the PiP button in the floating window
     pipButton.addEventListener('click', function() {
-        if (currentPiPIframe) {
-            // If there is already an active PiP, close it
-            document.exitPictureInPicture().then(() => {
-                iframe.style.pointerEvents = 'auto'; // Re-enable original iframe
-                currentPiPIframe = null; // Reset the current PiP iframe tracker
-            }).catch(err => console.error(err));
-        } else {
-            // Open the new PiP for the current floating iframe
-            floatingIframe.requestPictureInPicture().then(() => {
-                currentPiPIframe = floatingIframe; // Track the currently active PiP iframe
-                iframe.style.pointerEvents = 'none'; // Disable original iframe
-            }).catch(err => console.error(err));
-        }
+        // Remove the floating div (this PiP frame)
+        document.body.removeChild(floatingDiv);
     });
-    controlsDiv.appendChild(pipButton);
+    floatingDiv.appendChild(pipButton);
 
     // Append the floating div to the body (detaching it from the extension frame)
     document.body.appendChild(floatingDiv);
 
-    // Make the floating video draggable and resizable
-    makeDraggable(floatingDiv);
+    // Make the entire floating video draggable and resizable
+    makeDraggable(floatingDiv, floatingIframe);  // Pass both floatingDiv and iframe
     makeResizable(floatingDiv);
 }
 
-
-// Make the floating video draggable across the extension window
-//TODO: Make it draggable throughout the browser.
-
-function makeDraggable(element) {
+function makeDraggable(element, iframe) {
     let isDragging = false;
     let mouseX = 0, mouseY = 0, offsetX = 0, offsetY = 0;
 
     element.addEventListener('mousedown', function(event) {
-        if (event.target.classList.contains('resize-handle')) return;  // Ignore dragging if resizing
+        // If the click is on a resizing handle, do not activate dragging
+        if (event.target.classList.contains('resize-handle')) return;
+
         event.preventDefault();
         isDragging = true;
         offsetX = event.clientX - element.getBoundingClientRect().left;
         offsetY = event.clientY - element.getBoundingClientRect().top;
-        document.addEventListener('mousemove', dragElement);  // Start moving when mouse moves
+
+        // Disable pointer events on the iframe to enable dragging
+        iframe.style.pointerEvents = 'none';
+
+        document.addEventListener('mousemove', dragElement);
     });
 
     function dragElement(event) {
-        if (!isDragging) return; // If not dragging, ignore
+        if (!isDragging) return;
 
         event.preventDefault();
-        // Update the position of the floating video
         element.style.top = (event.clientY - offsetY) + "px";
         element.style.left = (event.clientX - offsetX) + "px";
     }
 
-    // Stop dragging when the mouse button is released anywhere on the page
-    document.onmouseup = function() {
-        isDragging = false; // Stop dragging
-        document.removeEventListener('mousemove', dragElement); // Remove the move event listener
-    };
+    // Stop dragging when mouse is released
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+        iframe.style.pointerEvents = 'auto';  // Re-enable iframe pointer events
+        document.removeEventListener('mousemove', dragElement);
+    });
 }
+
+
+
 
 // Make the floating video resizable
 function makeResizable(element) {
