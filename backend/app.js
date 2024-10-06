@@ -11,21 +11,17 @@ form.addEventListener('submit', function(event) {
     loadVideos(searchVal, true);  // Load the first 10 videos, true indicates a new search
 });
 
+// Function to search videos (returns 10 video IDs and nextPageToken for pagination)
+async function Search(search) {
+    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apikey}&q=${search}&type=video&part=snippet&maxResults=3`);
+        //api token ^^
+    const r = await result.json();
+    const e = await r.items;
+    pageToken = r.nextPageToken || '';  // Update the page token for the next API call
+    
+    const listOfLinks = e.map(i => i.id.videoId);
+    return listOfLinks;
 
-// returns 3 video ids based on "search" parameter 
-async function Search(search) { // change query to 5 when presenting
-    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apikey}&q=${search}&type=video&part=snippet&maxResults=2`); 
-
-    const resultJson = await result.json(); 
-    const itemMap = await resultJson.items; 
-     
-    const listOfLinks = [];
-
-    await itemMap.map(item => {
-        listOfLinks.push(item.id.videoId);
-    }) 
-
-    return await listOfLinks; 
 }
 
 // Function to load videos into the container
