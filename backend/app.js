@@ -14,7 +14,7 @@ form.addEventListener('submit', function(event) {
 // Function to search videos (returns 10 video IDs and nextPageToken for pagination)
 async function Search(search) {
     const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyBCQZe7sxmbpMQTzGvkyvypQgfzh-Sof6g&q=${search}&type=video&part=snippet&maxResults=3`);
-        
+        //api token ^^
     const r = await result.json();
     const e = await r.items;
     pageToken = r.nextPageToken || '';  // Update the page token for the next API call
