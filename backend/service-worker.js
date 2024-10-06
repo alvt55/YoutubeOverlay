@@ -2,7 +2,7 @@ chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
   .catch((error) => console.error(error));
 
-//listen for clicks on Open Side Panel button
+  //listen for clicks on Open Side Panel button
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: 'openSidePanel',
