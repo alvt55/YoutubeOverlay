@@ -12,12 +12,14 @@ form.addEventListener('submit', function(event) {
 
 // Function to search for videos and return video IDs
 async function Search(search) {
+  
     const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyBCQZe7sxmbpMQTzGvkyvypQgfzh-Sof6g&q=${search}&type=video&part=snippet&maxResults=3`);
-    
+
     const r = await result.json(); 
     const e = await r.items; 
     const listOfLinks = e.map(i => i.id.videoId);
     return listOfLinks;
+
 }
 
 // Function to load videos into the container
@@ -31,6 +33,7 @@ async function loadVideos(search) {
 
     // Loop through video IDs and append them
     videoIds.forEach(videoId => {
+        // Create a currDiv element with the responsive container class
         let currDiv = document.createElement('div');
         currDiv.className = 'responsive-iframe-container';
 
