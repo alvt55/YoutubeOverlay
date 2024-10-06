@@ -23,16 +23,16 @@ form.addEventListener('submit', function(event) {
 
 
 // returns 3 video ids based on "search" parameter 
-async function Search(search) {
-    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyCEm2qPWQZsqoH92JFyGYsi2eHag-kko0Q&q=${search}&type=video&part=snippet&maxResults=3`); 
+async function Search(search) { // change query to 5 when presenting
+    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apikey}&q=${search}&type=video&part=snippet&maxResults=2`); 
 
-    const r = await result.json(); 
-    const e = await r.items; 
+    const resultJson = await result.json(); 
+    const itemMap = await resultJson.items; 
      
     const listOfLinks = [];
 
-    const t = await e.map(i => {
-        listOfLinks.push(i.id.videoId); 
+    await itemMap.map(item => {
+        listOfLinks.push(item.id.videoId);
     }) 
 
     return await listOfLinks; 
