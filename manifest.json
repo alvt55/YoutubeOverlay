@@ -1,5 +1,5 @@
 {
-  "name": "Hello Extensions",
+  "name": "Youtube sidebar",
   "description": "Base Level Extension",
   "version": "1.0",
   "manifest_version": 3,
@@ -12,7 +12,7 @@
     "sidePanel"
   ],
   "side_panel": {
-    "default_path": "backend/sidepanel.html"
+    "default_path": "sidepanel.html"
   },
   "background": {
     "service_worker": "backend/service-worker.js"
