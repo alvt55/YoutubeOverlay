@@ -6,24 +6,40 @@
     font-family: 'Helvetica Neue', sans-serif;
 }
 
-/* Full height background with animation */
+:root {
+    --color-1: #ff7d7d; /* Light pinkish-orange */
+    --color-2: #ffb0b0; /* Yellow */
+}
+
+/* Full height background with customizable gradient */
 .background {
-    position: fixed; /* Ensure background is fixed to the viewport */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;  /* Use 100% to cover the full height of the viewport */
-    background: linear-gradient(120deg, #ff9a9e 0%, #fad0c4 100%);
-    background-size: 300% 300%;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--color-1), var(--color-2), var(--color-1), var(--color-2));
+    background-size: 100% 400%; /* Extend height for seamless looping */
     z-index: -1;
-    animation: movingBackground 8s ease infinite;
+    animation: animateGradient 12s linear infinite; /* Linear for constant flow */
 }
 
-@keyframes movingBackground {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes animateGradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 100%; /* Move the gradient down */
+    }
 }
+
+
+
+
+
+
+
+
 
 /* Main container */
 .app-container {
