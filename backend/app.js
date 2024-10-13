@@ -13,8 +13,8 @@ form.addEventListener('submit', function(event) {
 // Function to search for videos and return video IDs
 async function Search(search) {
   
-    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyBCQZe7sxmbpMQTzGvkyvypQgfzh-Sof6g&q=${search}&type=video&part=snippet&maxResults=30`);
-
+    const result =  await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyCqnm5Zfg8z6m_LMwch0I-K9kuBtDLqLz4&q=${search}&type=video&part=snippet&maxResults=30`);
+// test
     const r = await result.json(); 
     const e = await r.items; 
     const listOfLinks = e.map(i => i.id.videoId);
