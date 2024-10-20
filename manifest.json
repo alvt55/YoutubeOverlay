@@ -1,26 +1,47 @@
 {
     "icons": {
-        "16": "images/icon.png",
-        "32": "images/icon.png",
-        "48": "images/icon.png",
-        "128": "images/icon.png"
+        "16": "frontend/images/icon.png",
+        "32": "frontend/images/icon.png",
+        "48": "frontend/images/icon.png",
+        "128": "frontend/images/icon.png"
     },
-    "name": "Youtube sidebar",
+    "name": "Youtube Overlay",
     "description": "Base Level Extension",
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-        "default_icon": "images/icon.png",
-        "default_title": "Click to open panel"
+        "default_icon": "frontend/images/icon.png"
+        
     },
     "permissions": [
         "contextMenus",
-        "sidePanel"
+        "sidePanel",
+        "activeTab",
+        "scripting"
     ],
-    "side_panel": {
-        "default_path": "sidepanel.html"
-    },
     "background": {
-        "service_worker": "backend/service-worker.js"
-    }
+        "service_worker": "service-worker.js"
+    },
+
+    "side_panel": {
+        "default_path": "frontend/sidepanel.html"
+    },
+
+    "commands": {
+        "_execute_action": {
+          "suggested_key": {
+            "default": "Ctrl+B",
+            "mac": "Command+B"
+          }
+        }
+      }
+
+ 
+
+
+
+
+  
+
+    
 }
